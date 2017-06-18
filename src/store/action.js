@@ -56,10 +56,33 @@ export default {
   },
 
 
+  //购物车Action
   async [type.ADD_CART] ({commit},params) {
     let response = await addCart(params);
     commit(type.RECORD_CART, response.data);
+  },
+  async [type.UPDATE_CART_PRODUCT_COUNT] ({commit},params) {
+    let response = await updateCartProductCount(params);
+    commit(type.RECORD_CART, response.data);
+  },
+  async [type.DELETE_CART_PRODUCT] ({commit},productId) {
+    let response = await deleteByProductId(productId);
+    commit(type.RECORD_CART, response.data);
+  },
+  async [type.DELETE_CART_PRODUCT_ALL_CHECKED] ({commit}) {
+    let response = await deleteCartAllCheck();
+    commit(type.RECORD_CART, response.data);
+  },
+  async [type.CART_CHECK_ALL] ({commit},check) {
+    let response = await cartCheckALL(check);
+    commit(type.RECORD_CART, response.data);
+  },
+  async [type.CART_CHECK_SINGLE] ({commit},params) {
+    let response = await cartCheckSingle(params);
+    commit(type.RECORD_CART, response.data);
   }
+
+
 
 
 
