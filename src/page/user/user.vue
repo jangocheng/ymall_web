@@ -82,6 +82,8 @@
     font-size: 38px;
     color: white;
     opacity: 0.97;
+    position: relative;
+    top:20px;
   }
 
   .user .u-header .u-h-logo {
