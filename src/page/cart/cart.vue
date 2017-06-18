@@ -2,6 +2,7 @@
   <div id="">
     <head-top></head-top>
     <h1>cart-购物车</h1>
+    <el-button @click="add()">qqqq</el-button>
     <foot-guide></foot-guide>
   </div>
 </template>
@@ -9,6 +10,7 @@
 <script>
   import headTop from "components/header/headTop";//导入组件
   import footGuide from "components/footer/footGuide";
+  import {mapState, mapMutations, mapActions} from "vuex"
   export default {
 
     //注册组件
@@ -26,9 +28,25 @@
     mounted(){
     },
     //计算属性
-    computed: {},
+    computed: {
+      ...mapState([
+        'cart'
+      ]),
+    },
     //方法
-    methods: {},
+    methods: {
+      ...mapActions([
+        'ADD_CART'
+      ]),
+      add(){
+        this.ADD_CART({productId:29,count:10}).then(()=>{
+            this.$message.info(this.cart.productTotal)
+        },error=>{
+          this.$message.error(error.response.data.msg)
+          }
+        )
+      }
+    },
     //观测方法
     watch: {}
   };
