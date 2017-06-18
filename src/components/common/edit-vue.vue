@@ -48,7 +48,6 @@
   import Vue from "vue";
   import {dialog, upload, input} from "element-ui"
   import quillEditor from "./editor.vue"
-  import {baseUrl} from "@/config/env"
 
   //  const quillEditor = require('./editor.vue')
   const VueQuillEditor = {
@@ -69,7 +68,7 @@
     ['blockquote', 'code-block'],
 
     [{'header': 1}, {'header': 2}],               // custom button values
-//    [{'list': 'ordered'}, {'list': 'bullet'}],
+//    [{'productList': 'ordered'}, {'productList': 'bullet'}],
 //    [{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
 //    [{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
 //    [{'direction': 'rtl'}],                         // text direction

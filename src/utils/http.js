@@ -83,7 +83,7 @@ export default(method = 'GET', url = '', data = {}) => {
 
   return new Promise(function (resolve, reject) {
     ajax.request(axiosRequestConfig).then(response => {
-      resolve(response);
+      resolve(response.data);
     }, error => {
       reject(error);
     })

@@ -41,7 +41,7 @@
   .swiper-container {
     width: 100%;
     height:300/@rem;
-    margin:50/@rem auto;
+
   }
   .css-banner{
   }

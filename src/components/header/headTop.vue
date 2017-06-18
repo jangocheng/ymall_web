@@ -1,34 +1,29 @@
 <template>
   <div class="headerWrapper">
     <div id="header" class="header">
-      <div class="h-left">
-        <a @click="$router.replace('/home')" style="cursor:pointer">
-          <img src="../../../static/img/logo.png" alt="logo" class="h-l-logo"/>
-          <span class="h-l-logo-text">YMALL</span>
-        </a>
-      </div>
-      <div class="h-right">
-        <ul>
-          <li><a href="">首页</a></li>
-          <li><a href="">论坛</a></li>
-          <li class="logout" v-if="userInfo!=null">
-            <span @click="$router.push('/profile')">个人中心</span>
-            <span @click="logOut"> 注 销 </span>
-
-          </li>
-          <li class="auth" v-else>
-            <router-link class="login" to="/user/login">登录</router-link>
-            <router-link class="register" to="/user/reg">注册</router-link>
-          </li>
-        </ul>
-
-
-        <div class="h-r-searchWrapper">
-          <i class="el-icon-search"></i>
-          <input type="text" placeholder="请输入搜索内容" class="h-r-search"/>
+      <div class="w">
+        <div class="h-right">
+          <ul>
+            <li><a href="">首页</a></li>
+            <li class="logout" v-if="userInfo!=null">
+              <span @click="$router.push('/my')">个人中心</span>
+              <span @click="logOut"> 注 销 </span>
+            </li>
+            <li class="auth" v-else>
+              <router-link class="login" to="/user/login">登录</router-link>
+              <router-link class="register" to="/user/reg">注册</router-link>
+            </li>
+          </ul>
         </div>
       </div>
+
     </div>
+    <div>
+    </div>
+    <div class="backgroudback">
+      <Searchbar></Searchbar>
+    </div>
+
   </div>
 </template>
 
@@ -36,8 +31,12 @@
   import Vue from "vue";
   import {input} from 'element-ui'
   import {mapActions, mapState} from 'vuex';
+  import  Searchbar from "components/assembly/Searchbar"
   Vue.use(input)
   export default {
+    components:{
+        Searchbar
+      },
     data(){
       return {
         isPersonalShow: false
@@ -61,26 +60,30 @@
 <style scoped>
   .headerWrapper {
     width: 100%;
-    background-color: #39393b;
-    padding: 10px 0;
+    background-color: #fcfcff;
   }
 
   #header {
-    width: 90%;
-    height: 26px;
+    width: 100%;
+
     font-size: 16px;
-    color: #FFFFFF;
+    background-color: #c4c4c4;
+    color: #8f8f8f;
     margin: 0 auto;
   }
-
+  .w {
+    width: 1080px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
   .h-left {
     float: left;
-    margin-top: -6px;
 
   }
 
   .header a {
-    color: #FFFFFF;
+    color: #000000;
     text-decoration: none;
   }
 
@@ -175,7 +178,9 @@
     cursor: pointer;
     margin-left: 5px;
   }
-
+.backgroudback{
+  background-color: #f8f7ff;
+}
   .router-link-active {
     border-bottom: 3px solid #42b983
   }
@@ -190,6 +195,6 @@
     margin: 0 7/@rem;
   }
   .auth .register {
-    color: #fff;
+    color: #000000;
   }
 </style>

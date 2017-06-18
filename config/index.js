@@ -26,13 +26,13 @@ module.exports = {
   // dev 开发环境
   dev: {
     env: require('./dev.env'),// 构建环境
-    port: 8080,// 端口号
+    port: 8087,// 端口号
     autoOpenBrowser: true,// 是否自动打开浏览器
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',// 编译发布的根目录，可配置为资源服务器域名或 CDN 域名
     proxyTable: {
       '/api':{
-        target: 'http://test.laoyaoguai.com.cn/api/',
+        target: 'http://zc.laoyaoguai.com.cn/api/',
         changeOrigin:true,
         secure:false,
         pathRewrite:{

@@ -11,9 +11,21 @@ const User = resolve => require(['page/user/user'], resolve)
 const Login = resolve => require(['page/user/children/login'], resolve)
 const Reg = resolve => require(['page/user/children/reg'], resolve)
 const Reset = resolve => require(['page/user/children/reset'], resolve)
-const Profile = resolve => require(['page/profile/profile'], resolve)
+
 const notFound = resolve => require(['page/errorPage/notFound'], resolve);
 const serverError = resolve => require(['page/errorPage/serverError'], resolve);
+
+const my = resolve => require(['page/my/my'], resolve);
+const orderList = resolve => require(['page/my/children/orderList'], resolve);
+const profile = resolve => require(['page/my/children/profile'], resolve);
+
+const cart = resolve => require(['page/cart/cart'], resolve);
+const orderPlace = resolve => require(['page/orderPlace/orderPlace'], resolve);
+const payment = resolve => require(['page/payment/payment'], resolve);
+const productDetail = resolve => require(['page/productDetail/productDetail'], resolve);
+const productList = resolve => require(['page/productList/productList'], resolve);
+
+
 
 Vue.use(VueRouter);//创建路由实例
 
@@ -49,14 +61,46 @@ const routes = [
     ]
   },
   {
-    path: '/profile',
-    component: Profile,
-    meta: {requireAuth: true, title: "YMALL-个人中心"},  // 添加该字段，表示进入这个路由是需要登录的
-  },
+    path: '/my',
+    component: my,
+    meta: {requireAuth:false},  // 添加该字段，表示进入这个路由是需要登录的
+    redirect: 'profile',
+    children: [
+      {
+        path:'oderList',
+        component:orderList,
+        meta:{title:"我的订单"}
+      },{
+        path:'profile',
+        component:profile,
+        meta:{title:"个人中心"}
+      }
+    ]
 
-  {"path": "/404", component: notFound, meta: {title: "404页面找不到"}},
-  {"path": "/500", component: serverError, meta: {title: "服务器错误"}},
-  {"path": "*", redirect: "/404", meta: {title: "404页面找不到"}},
+  },
+  {path:'/cart',
+    component:cart,
+    meta:{requireAuth:false,title:"购物车"}
+  } ,
+  {path:'/orderPlace',
+    component:orderPlace,
+    meta:{requireAuth:false,title:"下单"}
+  } ,
+  {path:'/payment',
+    component:payment,
+    meta:{requireAuth:false,title:"支付页"}
+  } ,
+  {path:'/productDetail',
+    component:productDetail,
+    meta:{requireAuth:false,title:"商品详情页"}
+  } ,
+  {path:'/productList',
+    component:productList,
+    meta:{requireAuth:false,title:"商品列表"}
+  } ,
+  {path: "/404", component: notFound, meta: {title: "404页面找不到"}},
+  {path: "/500", component: serverError, meta: {title: "服务器错误"}},
+  {path: "*", redirect: "/404", meta: {title: "404页面找不到"}},
 ];
 
 

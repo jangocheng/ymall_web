@@ -6,83 +6,38 @@
 import ajax from "utils/http.js";
 
 
-/**
- * 用户登录
- * @param username
- * @param password
- */
-var login = user => ajax('post', '/api/account/login/', user);
-/*
- *
- * 获取验证码
- * @param flag
- * @param phone_number
- * */
-var getSmsCode = (myData) => ajax('post', '/api/sms/auth_sms', myData)
-/*
- * 用户注册
- * @param phone_number
- * @param password
- * @param auth_code
- *
- * */
-var register = (myData) => ajax('post', '/api/account/register/', myData)
 
-/**
- * 获取用户信息
- */
-var getUserInfo = () => ajax("get", "/api/account/my_info", {});
-/*
- *
- * 修改用户个人信息接口
- * @param wechat
- * @param qq
- * @param address
- * @param nick_name
- * @param desc
- * @param gender
- * @param real_name
- * @param avatar
- * */
-var updateUserInfo = (myData) => ajax("put", '/api/account/my_info', myData);
-/**
- * 用户注销
- */
-var logout = () => ajax("post", "/api/account/logout/", {});
+//用户登录
+var login = myData => ajax('post', '/api/user/login/', myData);
+
+//注册
+var register = (myData) => ajax('post', '/api/user/register', myData)
+
+//获取用户信息
+var getUserInfo = () => ajax("get", "/api/user/my_info", {});
+
+//用户注销
+var logout = () => ajax("post", "/api/user/logout", {});
+
+//验证用户名与邮箱是否存在
+var isusername = (myData) => ajax("get", "/api/user/check_valid",
+  Object.assign(myData,{type:"username"}));
+var isemail = (myData) => ajax("get", "/api/user/check_valid",
+  Object.assign(myData,{type:"email"}));
+
+//获取商品品类
+var CommodityCategory = myData => ajax("get", "/api/category/sub_list/", myData);
 
 
-/**
- * 判断登录状态
- */
-var is_login = () => ajax("get", "/api/account/is_login/", {});
-
-/*
- *
- * 判断验证码是否正确
- * @param phone_number
- * @param auth_code
- *
- * */
-var isAuthCodeRight = (myData) => ajax("post", "/api/sms/verify_auth_sms", myData);
-/*
- * 重置密码（忘记密码）
- * @param id
- * @param auth_code
- * @param phone_number
- *
- * */
-var resetPassword = (myData) => ajax("post", "/api/account/reset_password", myData)
 
 export {
   login,
-  getSmsCode,
   register,
   logout,
   getUserInfo,
-  is_login,
-  isAuthCodeRight,
-  updateUserInfo,
-  resetPassword
+  CommodityCategory,
+  isusername,
+  isemail
 }
 
 

@@ -109,7 +109,7 @@
       getParams (params) {
         return Object.assign({
           paging: true,
-          page: this.currentPage,
+          pageNum: this.currentPage,
           limit: this.limit
         }, params)
       },
@@ -209,7 +209,7 @@
        * list：当页数据
        */
 //      addToList(list){
-//        if (list && list.length > 0) {
+//        if (productList && productList.length > 0) {
 //          this.dataList.push.apply(this.dataList, list);
 //        }else {
 //            this.currentPage--;

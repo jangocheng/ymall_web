@@ -3,33 +3,21 @@
     <el-row type="flex" justify="space-around" align="middle">
       <el-col :xs="10" :sm="10" :md="10" :lg="10">
         <el-form ref="form1" :model="form1" :rules="rules">
-          <el-form-item label="手机号" class="r-f-label" prop="phone_number">
-            <el-input placeholder="请输入手机号" v-model="form1.phone_number"></el-input>
-            <span class="el-icon-circle-check phone-ok" v-show="rightPhoneNumber"></span>
+          <el-form-item label="用户名" class="r-f-label" prop="username">
+            <el-input placeholder="请输入3-10位字母或数字用户名" @blur="is_username()" v-model="form1.username"></el-input>
+            <span class="el-icon-circle-check phone-ok" v-show="rightUsername"></span>
           </el-form-item>
-          <el-form-item v-if="false" label="邮箱" class="r-f-label">
-            <el-input placeholder="请输入邮箱" v-model="email"></el-input>
+          <el-form-item label="邮箱" class="r-f-label" prop="email">
+            <el-input placeholder="请输入邮箱" @blur="is_email" v-model="form1.email"></el-input>
+            <span class="el-icon-circle-check phone-ok" v-show="rightEmail"></span>
           </el-form-item>
           <el-form-item label="密码" class="r-f-label" prop="password">
-            <el-input type="password" placeholder="请输入密码" v-model="form1.password"></el-input>
+            <el-input type="password" placeholder="请输入6位以上密码" v-model="form1.password"></el-input>
             <span class="el-icon-circle-check pass-ok" v-if="isPass"></span>
           </el-form-item>
           <el-form-item label="确认密码" class="r-f-label" prop="passwordOk">
             <el-input type="password" placeholder="请再次输入密码" v-model="form1.passwordOk"></el-input>
             <span class="el-icon-circle-check both-ok" v-if="isSamePass"></span>
-          </el-form-item>
-          <el-form-item label="验证码" class="r-f-label" style="margin-top: 25px;" prop="auth_code">
-            <el-row>
-              <el-col :xs="6" :sm="6" :md="6" :lg="6">
-                <el-input placeholder="请输入验证码" class="codeNumber" v-model="form1.auth_code"></el-input>
-              </el-col>
-              <el-col :xs="6" :sm="6" :md="6" :lg="6" :offset="6">
-                <el-button style="background: #f0ebf0;" @click.prevent="sendCode"
-                           :class="{'right-phone-number':rightPhoneNumber}" v-show="!computedTime">获取验证码
-                </el-button>
-                <el-button @click.prevent v-show="computedTime">已发送({{computedTime}}s)</el-button>
-              </el-col>
-            </el-row>
           </el-form-item>
           <el-form-item>
             <el-row>
@@ -46,7 +34,7 @@
       </el-col>
       <el-col :xs="8" :sm="8" :md="8" :lg="8">
         <div>
-          <span class="r-login-text">已注册WisSky账号？</span>
+          <span class="r-login-text">已注册YMALL账号？</span>
           <el-button type="primary" @click="$router.push('/user/login')" class="r-login">登录账号
           </el-button>
         </div>
@@ -59,7 +47,7 @@
 <script>
   import Vue from 'vue'
   import {input, form, validateState, icon, formItem, option} from 'element-ui'
-  import {getSmsCode, register} from 'service/getData'
+  import {register,isusername,isemail} from 'service/getData'
   Vue.use(input)
   Vue.use(form)
   Vue.use(formItem)
@@ -69,11 +57,20 @@
     mixins: [],     //混合
     components: {},//注册组件
     data(){         //数据
-      var validatePhone = (rule, value, callback) => {
+      var validateUsername = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error("请输入手机号"))
-        } else if (!/^1\d{10}$/g.test(value)) {
-          callback(new Error("手机号格式不正确"))
+          callback(new Error("请输入用户名"))
+        } else if (!/^[a-zA-Z0-9_]{3,10}$/ .test(value)) {
+          callback(new Error("用户名格式不正确"))
+        } else {
+          callback();
+        }
+      }
+      var validateEmail = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error("请输入邮箱"))
+        } else if (!/^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/.test(value)) {
+          callback(new Error("邮箱格式不正确"))
         } else {
           callback();
         }
@@ -102,25 +99,23 @@
         title: "用户注册",//父组件名字
         computedTime: 0, //倒数记时
         form1: {
-          phone_number: "",
+          username: "",
           email: "",
           password: "",
           passwordOk: "",
-          auth_code: "",
         },
         rules: {
-          phone_number: [
-            {validator: validatePhone, trigger: 'change'}
+          username: [
+            {validator: validateUsername, trigger: 'change'}
+          ],
+          email: [
+            {validator: validateEmail, trigger: 'change'}
           ],
           password: [
             {validator: validatePass, trigger: 'change'}
           ],
           passwordOk: [
             {validator: validatePassOk, trigger: 'change'}
-          ],
-          auth_code: [
-//          {required: true, message: '验证码不能为空', trigger: 'blur'},
-            {min: 6, max: 6, message: '验证码格式不对', trigger: 'blur'}
           ],
         },
 
@@ -136,8 +131,11 @@
       });
     },
     computed: {
-      rightPhoneNumber(){
-        return /^1\d{10}$/g.test(this.form1.phone_number);
+      rightUsername(){
+        return /^[a-zA-Z0-9_]{3,10}$/.test(this.form1.username);
+      },
+      rightEmail(){
+        return /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/.test(this.form1.email);
       },
       isSamePass(){
         let flag = /^\d{6,}$/g.test(this.form1.password);
@@ -149,41 +147,40 @@
     },  //计算属性
     //挂载
     methods: {
-      sendCode(){
-        if (this.rightPhoneNumber) {
-          let myData = {flag: 'register', phone_number: this.form1.phone_number};
-          getSmsCode(myData).then(response => {
-            if (response.data.status == "success") {
-              this.computedTime = 60;
-              this.timer = setInterval(() => {
-                this.computedTime--;
-                if (this.computedTime == 0) {
-                  clearInterval(this.timer)
-                }
-              }, 1000)
+      is_username(){
+        isusername({value:this.form1.username}).then(
+            response=>{
+            },
+            error=>{
+              this.form1.username='';
+              this.message({
+                message: error.response.data.msg,
+                type: 'error',
+
+              });
             }
-          }).catch(error => {
-            let content = error.response.data.content;
-            this.message({
-              message: content,
-              type: 'warning',
-              duration: '1500'
-            });
-          });
-        } else {
-          this.message({
-            message: '手机号不能为空',
-            type: 'warning',
-          });
-        }
+        )
+      },
+      is_email(){
+          isemail({value:this.form1.email}).then(
+              response=>{},
+              error=>{
+                this.form1.email='';
+                this.message({
+                  message: error.response.data.msg,
+                  type: 'error',
+                });
+              }
+
+          )
       },
       register(formName){
         this.$refs[formName].validate((valid) => {
           if (valid) {
             let myData = {
-              phone_number: this.form1.phone_number,
+              username: this.form1.username,
               password: this.form1.password,
-              auth_code: this.form1.auth_code
+              email:this.form1.email
             }
             register(myData).then(response => {
               this.message({
@@ -193,9 +190,8 @@
               });
               this.$router.push("/user/login");
             }).catch(error => {
-              var content = error.response.data.content;
               this.message({
-                message: content,
+                message: error.response.data.msg,
                 type: 'warning',
                 duration: '1500'
               });
