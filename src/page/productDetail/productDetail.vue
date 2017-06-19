@@ -1,5 +1,5 @@
 <template>
-    <div id="productDetail">
+    <div id="productDetail" class="body">
       <head-top></head-top>
       <div class="crumb">
         <div class="w">
@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-<div class="body">
+
   <div class="w" >
     <div class="intro-wrap clear">
       <div class="p-img-wrap">
@@ -27,7 +27,7 @@
         <p class="p-name">
           {{productDetail.name}}
         </p>
-        <p class="p-subtitle">疯狂大促</p>
+        <p class="p-subtitle">{{productDetail.subtitle}}</p>
         <div class="info-item p-price-con">
           <span class="lable">价格</span>
           <span class="p-price">{{productDetail.price}}</span>
@@ -48,21 +48,21 @@
       </div>
     </div>
   </div>
-    <div class="detail_wrap">
-      <div class="detail-tab-con">
-        <ul class="tab-list">
-          <li class=".tab-item.active-">商品详情</li>
+    <div class="w">
+      <div class="floor-wrap">
+        <h1 class="floor-title">商品详情</h1>
+        <ul class="floor-con">
+          <li class="floor-item" v-for="(item,index) in list1" :key="item.id" >
+            <a href>
+              <span class="floor-text">{{item.name}}</span>
+              <img class="floor-img" :src="item.categoryImage | defaultImg"/>
+            </a>
+          </li>
         </ul>
       </div>
-      <div class="" v-html="productDetail.detail">
+
+      <div class="" v-html="productDetail.detail"></div>
     </div>
-
-
-    </div>
-
-</div>
-
-
       <foot-guide></foot-guide>
     </div>
 </template>
@@ -87,7 +87,7 @@
         },
         //组件创建时
       created(){
-        getCommodityDetail(28).then(
+        getCommodityDetail(30).then(
           responds=>{
             this.productDetail=responds.data
           },
@@ -171,6 +171,11 @@
     margin-right: -10px;
     overflow: hidden;
   }
+  .detail-wrap .detail-tab-con .tab-list {
+    background: #eee;
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #c60023;
+  }
   .intro-wrap .p-img-list .p-img-item{
     width: 47px;
     height: 74px;
@@ -182,46 +187,46 @@
   li{
     list-style: none;
   }
-  .intro-wrap .p-img-list .p-img-item .p-img{
+.p-img{
     width: 100%;
     height: 100%;
   }
-  .intro-wrap .p-into-wrap{
+.p-into-wrap{
     margin-left: 420px;
     padding: 0 15px;
   }
-  .intro-wrap .p-into-wrap .p-name{
+.p-name{
     font-size: 20px;
     color: #333;
   }
-  .intro-wrap .p-into-wrap .p-subtitle{
+ .p-subtitle{
     color: #c60023;
     line-height: 30px;
     font-size: 15px;
   }
-  .intro-wrap .p-into-wrap .p-price-con{
+ .p-price-con{
     padding: 10px;
     background: #eeeeee;
     margin-top: 20px;
   }
-  .intro-wrap .p-into-wrap .info-item{
+.info-item{
     position: relative;
   }
-  .intro-wrap .p-into-wrap .lable{
+ .lable{
     display: inline-block;
     width: 50px;
     color: #999999;
   }
-  .intro-wrap .p-into-wrap .p-price-con .p-price{
+.p-price{
     font-size: 18px;
     color: #c60023;
   }
-  .intro-wrap .p-into-wrap .info-item{
+.info-item{
     position: relative;
     margin-top: 20px;
     padding: 0 10px;
   }
-  .intro-wrap .p-into-wrap .p-count{
+.p-count{
     height: 36px;
     line-height: 36px;
     font-size: 15px;
@@ -230,13 +235,13 @@
     outline: none;
     border: 1px solid #aaaaaa;
   }
-  .intro-wrap .p-into-wrap .p-count-btn.plus{
+.plus{
     top: 0px;
   }
-  .intro-wrap .p-into-wrap .p-count-btn.minus{
+.p-count-btn.minus{
     bottom: 0px;
   }
-  .intro-wrap .p-into-wrap .p-count-btn{
+.p-count-btn{
     position: absolute;
     left: 115px;
     display: block;
@@ -249,7 +254,7 @@
     background: #fff;
     cursor: pointer;
   }
-  .intro-wrap .p-into-wrap .info-item{
+.info-item{
     position: relative;
     margin-top: 20px;
     padding: 0 10px;
@@ -275,13 +280,41 @@
     text-align: center;
     height: auto;
   }
-  .detail-wrap .detail-tab-con .tab-list {
+.tab-list {
      background: #eee;
      border: 1px solid #ddd;
      border-bottom: 1px solid #c60023;
    }
-  .detail-wrap .detail-tab-con .tab-item.active {
-    background: #c60023;
-    color: #fff;
+  .floor-wrap {
+    overflow: hidden;
+  }
+  .floor-wrap .floor-title {
+    font-weight:900;
+    height: 50px;
+    line-height: 50px;
+    color: #C60023;
+    font-weight: 400;
+    font-size: 20px;
+    border-bottom: 1px solid #C60023;
+  }
+  .floor-wrap .floor-con {
+    margin-right: -20px;
+  }
+  .floor-item {
+    position: relative;
+    width: 200px;
+    height: 220px;
+    margin: 15px 20px 15px 0;
+    float: left;
+    cursor: pointer;
+    background: #fff;
+    transition: box-shadow .5s ease;
+  }
+  .floor-text {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    font-size: 16px;
+    color: #5e5e5e;
   }
 </style>

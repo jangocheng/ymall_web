@@ -4,7 +4,8 @@
      <h2>全部产品</h2>
      <ul v-for="product in productList" >
        <li >
-         <a class="cate-link" @click="clicklist(product.id)">{{ product.name }}</a>
+         <router-link class="cate-link" :to="{ path: 'productList' }">{{ product.name }}</router-link>
+         <!--<a class="cate-link" @click="clicklist(product.id)">{{ product.name }}</a>-->
        </li>
      </ul>
    </div>

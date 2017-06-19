@@ -1,7 +1,6 @@
-<template>
-    <div id="">
+<template >
+    <div id="" class="body">
       <head-top></head-top>
-      <div>
         <div class="crumb">
           <div class="w">
             <div class="crumb-list">
@@ -11,49 +10,33 @@
             </div>
           </div>
         </div>
-
-        <div class="list-wrap w">
-          <i class="fa fa-sort-asc"></i>
-          <ul class="sorter-con">
-            <li class="sorter-item active" data-type="default">
-              <span>推荐排序</span>
-            </li>
-            <li class="sorter-item" data-type="price">
-              <span>价格</span>
-              <i class="fa fa-sort-asc"></i>
-              <i class="fa fa-sort-desc"></i>
-            </li>
-          </ul>
-          <div class="pagination"></div>
-        </div>
+      <div class="w">
         <load-list ref="productList" :data_list="dataList"
-                   :total_page="totalPage" class="w"
+                   :total_page="totalPage" class="p-list-con"
                    @loadData="loadData"
                    mode="pen">
           <template slot="item" scope="product">
-                  <li class="p-item">
-                    <div class="p-img-con">
-                      <a class="link" href=""  target="_blank">
-
-                        <img class="p-img" alt="APPLE PHONE" src=""/>
-                      </a>
-                    </div>
-
-                    <div class="p-price-con">
-                      <span class="p-price">6999</span>
-                    </div>
-
-                    <div class="p-name-con">
-                      <a title="APPLE" class="p-name" href="" target="_blank">
-                        {{product.obj.name}}
-                      </a>
-                    </div>
-                  </li>
-
+              <li class="p-item">
+                <div class="p-img-con">
+                  <a class="link" href=""  target="_blank">
+                    <img class="p-img" alt="APPLE PHONE" src="product.obj.mainImage"/>
+                  </a>
+                </div>
+                <div class="p-price-con">
+                  <span class="p-price">{{product.obj.price}}</span>
+                </div>
+                <div class="p-name-con">
+                  <a title="APPLE" class="p-name" href="" target="_blank">
+                    {{product.obj.name}}
+                  </a>
+                </div>
+              </li>
           </template>
         </load-list>
 
       </div>
+
+
 
       <foot-guide></foot-guide>
     </div>
@@ -109,6 +92,23 @@
 </script>
 
 <style scoped>
+  .body {
+    background-color: #f6f6f6;
+    min-width: 1080px;
+    font: 12px/1.5 tahoma,arial,Hiragino Sans GB,\\5B8B\4F53,sans-serif;
+  }
+  .w {
+    width: 1080px;
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    position: relative;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
   .crumb{
     margin-bottom: 15px;
     height: 50px;
@@ -118,22 +118,11 @@
     color: #888;
     border-top: 2px solid #c60023;
   }
-  .w{
-    width: 1080px;
-    margin:  0 auto;
-    position: relative;
-    overflow: hidden;
-  }
+
   .crumb .crumb-item{
     color: #888;
     text-decoration: none;
     cursor: pointer;
-  }
-  .w{
-    width: 1080px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
   }
   .fa{
     display: inline-block;
@@ -161,10 +150,12 @@
     top: 7px;
     right:8px;
   }
-  .p-list-con{
+  .p-list-con {
     margin-top: 15px;
     margin-right: -20px;
     overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
   }
   .p-list-con .p-item{
     position: relative;

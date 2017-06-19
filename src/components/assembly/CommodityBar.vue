@@ -4,10 +4,12 @@
       <h1 class="floor-title">F1家用电器</h1>
       <ul class="floor-con">
         <li class="floor-item" v-for="(item,index) in list1" :key="item.id" >
-            <a href>
+             <router-link :to="{ path: 'productList'}" replace>
               <span class="floor-text">{{item.name}}</span>
               <img class="floor-img" :src="item.categoryImage | defaultImg"/>
-            </a>
+            </router-link>
+
+
         </li>
       </ul>
     </div>
@@ -15,10 +17,10 @@
       <h1 class="floor-title">F2数码3c</h1>
       <ul class="floor-con">
         <li class="floor-item" v-for="(item,index) in list2" :key="item.id" >
-          <a href>
+          <router-link :to="{ path: 'productList'}" replace>
             <span class="floor-text">{{item.name}}</span>
             <img class="floor-img" :src="item.categoryImage | defaultImg"/>
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -26,10 +28,10 @@
       <h1 class="floor-title">F3服装箱包</h1>
       <ul class="floor-con">
         <li class="floor-item" v-for="(item,index) in list3" :key="item.id" >
-          <a href>
+          <router-link :to="{ path: 'productList'}" replace>
             <span class="floor-text">{{item.name}}</span>
             <img class="floor-img" :src="item.categoryImage | defaultImg"/>
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -37,10 +39,10 @@
       <h1 class="floor-title">F4视频生鲜</h1>
       <ul class="floor-con">
         <li class="floor-item" v-for="(item,index) in list4" :key="item.id" >
-          <a href>
+          <router-link :to="{ path: 'productList', query: { categoryId: 'private' }}" replace>
             <span class="floor-text">{{item.name}}</span>
             <img class="floor-img" :src="item.categoryImage | defaultImg"/>
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -48,10 +50,10 @@
       <h1 class="floor-title">F5酒水饮料</h1>
       <ul class="floor-con">
         <li class="floor-item" v-for="(item,index) in list5" :key="item.id" >
-          <a href>
+          <router-link :to="{ path: 'productList'}" replace>
             <span class="floor-text">{{item.name}}</span>
             <img class="floor-img" :src="item.categoryImage | defaultImg"/>
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>

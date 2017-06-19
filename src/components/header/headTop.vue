@@ -4,7 +4,7 @@
       <div class="w">
         <div class="h-right">
           <ul>
-            <li><a href="">首页</a></li>
+            <li> <router-link :to="{ path: 'Home' }">首页</router-link></li>
             <li class="logout" v-if="userInfo!=null">
               <span @click="$router.push('/my')">个人中心</span>
               <span @click="logOut"> 注 销 </span>

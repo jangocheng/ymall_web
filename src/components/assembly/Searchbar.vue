@@ -3,16 +3,14 @@
   <el-row>
     <el-col :push="4" >
       <div style="height: 50px;">
-        <a class="logo" href="">YMALL</a>
+        <router-link class="logo" :to="{ path: 'Home' }">YMall</router-link>
       </div>
-
     </el-col>
     <el-col  :push="8" >
       <div style="height: 50px">
         <input class="search-input" id="Searchinput" placeholder="请输入商品名称"/>
         <button class="search-btn">搜索</button>
       </div>
-
     </el-col>
   </el-row>
 
