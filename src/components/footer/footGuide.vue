@@ -4,7 +4,7 @@
             <div class="f-logo-wrapper">
                 <a href="">
                     <img src="../../../static/img/logo.png" alt="logo" class="f-logo"/>
-                    <span class="f-logo-text">Wissky</span>
+                    <span class="f-logo-text">YMALL</span>
                 </a>
             </div>
             <div class="f-friendlink">
@@ -16,7 +16,7 @@
                 </ul>
             </div>
             <div class="f-copyright">
-              <p>@Copyright:WisSky,鲁ICP备16038155号</p>
+              <p>@Copyright:YMALL,XXXXXXXXXXX</p>
             </div>
         </div>
     </footer>
