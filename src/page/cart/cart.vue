@@ -5,7 +5,7 @@
       <div class="crumb">
         <div class="w">
           <div class="crumb-list">
-            <a class="crumb-item" href="/home">YMall</a>
+            <a class="crumb-item" href="/home">YMALL</a>
             <span></span>
             <span class="crumb-item">我的购物车</span>
           </div>
@@ -14,10 +14,12 @@
       <div class="cart-wrap w">
         <div>
           <el-table
-            ref="table"
+            ref="cart_table"
             :data="cart.cartItemList"
             :stripe="true"
             @cell-click="handleCellClick"
+            @select-all="selectAll"
+            @select="selectSingle"
             :highlight-current-row="true"
             style="width: 100%">
             <el-table-column
@@ -26,20 +28,22 @@
             </el-table-column>
             <el-table-column
               label="商品信息"
-              width="600">
+              width="550">
               <template scope="scope">
-                <router-link to="#" target="_blank">
-                  <img class="p-img" :src="scope.row.productMainImage | defaultImg"/>
-                </router-link>
-                <router-link class="link p-name" to="#" target="_blank">
-                  {{scope.row.productName}}
-                </router-link>
+                <div style="margin: 10px auto">
+                  <router-link to="#" target="_blank">
+                    <img class="p-img" :src="scope.row.productMainImage | defaultImg"/>
+                  </router-link>
+                  <router-link class="link p-name" to="#" target="_blank">
+                    {{scope.row.productName}}
+                  </router-link>
+                </div>
+
               </template>
             </el-table-column>
             <el-table-column
               label="单价"
-              width="120"
-            >
+              width="150">
               <template scope="scope">
                 ￥{{scope.row.productPrice}}
               </template>
@@ -52,29 +56,40 @@
                 <el-input-number
                   v-model="scope.row.quantity"
                   size="small"
-                  :debounce="400"
+                  :debounce="300"
                   @change="updateCount"
                   :min="1" :max="scope.row.productStock"></el-input-number>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="合计"
+              width="120">
+              <template scope="scope">
+                <span style="color: #333333;font-weight: bold">  ￥{{scope.row.productTotalPrice}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="操作"
+              width="110">
+              <template scope="scope">
+                <el-button type="text" icon="delete" @click="delete_item(scope.row.productId)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
         </div>
         <div class="cart-footer clear">
-          <div class="select-con">
-            <label>
-              <input class="cart-select-all" type="checkbox" checked="checked"/>
-              <span>全选</span>
-            </label>
-          </div>
+          <!--<div class="select-con">-->
+           <!--<el-button type="text" size="small">全选</el-button>-->
+          <!--</div>-->
           <div class="delete-con">
             <a class="cart-delete-seleced link">
               <i class="fa fa-trash-o" aria-hidden="true"></i>
-              <span>删除选中</span>
+              <span @click="deleteSelect()">删除选中</span>
             </a>
           </div>
           <div class="submit-con">
             <span>总价：</span>
-            <span class="submit-total">373893</span>
+            <span class="submit-total">{{cart.cartTotalPrice}}元</span>
             <span class="btn submit-btn">去结算</span>
           </div>
         </div>
@@ -87,6 +102,7 @@
 <script>
   import vue from "vue"
   import {table, tableColumn, input, pagination, inputNumber} from "element-ui"
+  import TWEEN from "tween"
   vue.use(input)
   vue.use(table)
   vue.use(tableColumn)
@@ -105,7 +121,8 @@
     //数据
     data(){
       return {
-        currentProductId:""
+        currentProductId: "",
+        multipleSelection: []
       }
     },
     //组件创建时
@@ -113,6 +130,7 @@
     },
     //数据挂载时
     mounted(){
+      this.init_check();
     },
     //计算属性
     computed: {
@@ -125,32 +143,82 @@
       ...mapActions([
         'ADD_CART',
         'UPDATE_CART_PRODUCT_COUNT',
-        'DELETE_CART_PRODUC',
+        'DELETE_CART_PRODUCT',
         'DELETE_CART_PRODUCT_ALL_CHECKED',
         'CART_CHECK_ALL',
         'CART_CHECK_SINGLE'
       ]),
-      add(){
-        this.ADD_CART({productId: 29, count: 10}).then(() => {
-            this.$message.info(this.cart.productTotal)
-          }, error => {
-            this.$message.error(error.response.data.msg)
-          }
-        )
-
-        this.CART_CHECK_SINGLE()
-      },
       handleCellClick(row, column, cell, event){
-           this.currentProductId=row.productId
+        this.currentProductId = row.productId
       },
       updateCount(count){
-          setTimeout(()=>{
-            this.UPDATE_CART_PRODUCT_COUNT({productId:this.currentProductId,count:count}).then(()=>{},error=>{this.$message.info(error.response.data.msg)})
-          },500)
+        if (this.currentProductId == null || this.currentProductId.length <= 0) {
+          setTimeout(() => {
+            this.updateCount(count)
+          }, 150)
+        } else {
+          this.UPDATE_CART_PRODUCT_COUNT({productId: this.currentProductId, count: count}).then(() => {
+            this.currentProductId = "";
+          }, error => {
+            this.$message.info(error.response.data.msg)
+          })
+        }
+      },
+      selectAll(selection){
+        if (selection.length > 0) {
+          this.CART_CHECK_ALL(true).then(() => {
+
+          }, error => {
+            this.$message.info(error.response.data.msg)
+          })
+        } else {
+          this.CART_CHECK_ALL(false).then(() => {
+
+          }, error => {
+            this.$message.info(error.response.data.msg)
+          })
+        }
+      },
+      selectSingle(select, row){
+        let checked = !row.productChecked;
+        let productId = row.productId;
+        this.CART_CHECK_SINGLE({checked:checked, productId:productId}).then(() => {
+        }, error => {
+          this.$message.info(error.response.data.msg)
+        })
+      },
+      deleteSelect(){
+      this.DELETE_CART_PRODUCT_ALL_CHECKED().then(()=>{},
+        error=>{
+          this.$message.info(error.response.data.msg)
+      })
+      },
+      delete_item(productId){
+        this.DELETE_CART_PRODUCT(productId).then(()=>{
+          this.$message.success("移除商品成功")
+        },error=>{
+          this.$message.info(error.response.data.msg)
+        })
+      },
+      handleSelectionChange(val) {
+        console.log(val + "<=Change")
+      },
+      init_check(){
+        this.$nextTick(vm => {
+          this.cart.cartItemList.forEach(item => {
+            if (item.productChecked) {
+              this.$refs.cart_table.toggleRowSelection(item);
+            }
+          });
+        })
       }
     },
     //观测方法
-    watch: {}
+    watch: {
+      'cart.cartItemList': function () {
+        this.init_check();
+      }
+    }
   };
 </script>
 
@@ -166,7 +234,7 @@
   }
 
   .w {
-    width: 1080px;
+    width: 1136px;
     margin: 0 auto;
     position: relative;
     overflow: hidden;
@@ -183,23 +251,25 @@
     text-align: left;
   }
 
-  .w {
-    width: 1080px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-  }
-
   .link {
     color: #999999;
     text-decoration: none;
     cursor: pointer;
   }
 
+  .link:hover {
+    color: #20a0ff;
+  }
+
   .p-img {
     width: 80px;
     height: 80px;
     border: 1px solid #dddddd;
+    margin-right: 5px;
+  }
+
+  .p-name {
+    font-size: 12px;
   }
 
   .cart-wrap .cart-footer {

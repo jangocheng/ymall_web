@@ -34,7 +34,7 @@ var addCart = (myData) => ajax("post", "/api/cart/cart_item", myData)
 var updateCartProductCount = (myData) => ajax("put", "/api/cart/cart_item", myData)
 
 // 删除购物车某一产品
-var deleteByProductId = (productId) => ajax("delete", "/api/cart/" + productId, myData)
+var deleteByProductId = (productId) => ajax("delete", "/api/cart/cart_item/" + productId, {})
 
 // 删除购物车所有选择的产品
 var deleteCartAllCheck = () => ajax("delete", "/api/cart/cart_item_checked", {})
@@ -43,10 +43,10 @@ var deleteCartAllCheck = () => ajax("delete", "/api/cart/cart_item_checked", {})
 var getCart = () => ajax("get", "/api/cart/cart_list", {})
 
 // 全选或全反选
-var cartCheckALL = (check) => ajax("post", "/api/cart/cart_item", {checked: check})
+var cartCheckALL = (check) => ajax("post", "/api/cart/check_all", {checked: check})
 
 // 单选或单反选
-var cartCheckSingle = (productId, check) => ajax("post", "/api/cart/cart_item", {productId: productId, checked: check})
+var cartCheckSingle = (myData) => ajax("post", "/api/cart/check_single", myData)
 
 export {
   login,

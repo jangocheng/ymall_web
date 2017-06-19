@@ -3,7 +3,7 @@
   <el-row>
     <el-col :push="4" >
       <div style="height: 50px;">
-        <a class="logo" href="">YMALL</a>
+        <a class="logo" href="/home">YMALL</a>
       </div>
 
     </el-col>
@@ -30,7 +30,7 @@
    .logo {
     position: absolute;
     left: 50px;
-    top: 32px;
+    top: 42px;
     display: block;
     width: 150px;
     font-size: 36px;
