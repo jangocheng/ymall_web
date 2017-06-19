@@ -1,29 +1,101 @@
 <template>
-    <div id="">
+    <div id="productDetail">
       <head-top></head-top>
+      <div class="crumb">
+        <div class="w">
+          <div class="crumb-list">
+            <a class="crumb-item" href="./index.html">MMall</a>
+            <span></span>
+            <span class="crumb-item">商品列表</span>
+          </div>
+        </div>
+      </div>
+<div class="body">
+  <div class="w" >
+    <div class="intro-wrap clear">
+      <div class="p-img-wrap">
+        <div class="main-img-con">
+          <img class="main-img" src=""/>
+        </div>
+        <ul class="p-img-list">
+          <li class="p-img-item" v-for="image in productDetail.subImages">
+            <img class="p-img" src="image"/>
+          </li>
+        </ul>
+      </div>
+      <div class="p-into-wrap">
+        <p class="p-name">
+          {{productDetail.name}}
+        </p>
+        <p class="p-subtitle">疯狂大促</p>
+        <div class="info-item p-price-con">
+          <span class="lable">价格</span>
+          <span class="p-price">{{productDetail.price}}</span>
+        </div>
+        <div class="info-item p-quantity-con">
+          <span class="lable">库存</span>
+          <span class="p-price">{{productDetail.stock}}</span>
+        </div>
+        <div class="info-item">
+          <span class="lable">数量</span>
+          <input class="p-count" readonly="readonly" value="1"/>
+          <span class="p-count-btn plus" data-opera-type="plus">+</span>
+          <span class="p-count-btn minus" data-opera-type="minus">-</span>
+        </div>
+        <div class="info-item">
+          <a class="btn cart-add">加入购物车</a>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="detail_wrap">
+      <div class="detail-tab-con">
+        <ul class="tab-list">
+          <li class=".tab-item.active-">商品详情</li>
+        </ul>
+      </div>
+      <div class="" v-html="productDetail.detail">
+    </div>
+
+
+    </div>
+
+</div>
+
+
       <foot-guide></foot-guide>
     </div>
 </template>
-
+<!--<div v-html="" class="RichText"></div>-->
 <script>
   import headTop from "components/header/headTop";//导入组件
   import footGuide from "components/footer/footGuide";
+  import {getCommodityDetail} from "service/getData"
+//  import "assert/css/RichText"
     export default {
 
         //注册组件
         components: {
           headTop,
-          footGuide
+          footGuide,
         },
         //数据
         data(){
             return {
-
+              productDetail:''
             }
         },
         //组件创建时
-        created(){
-        },
+      created(){
+        getCommodityDetail(28).then(
+          responds=>{
+            this.productDetail=responds.data
+          },
+          error=>{
+            console.log(error.response.data.content)
+          }
+        )
+      },
         //数据挂载时
         mounted(){
         },
@@ -37,5 +109,179 @@
 </script>
 
 <style scoped>
-
+  .body {
+    background-color: #f6f6f6;
+    min-width: 1080px;
+    font: 12px/1.5 tahoma,arial,Hiragino Sans GB,\\5B8B\4F53,sans-serif;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 12px;
+    line-height: 1.5;
+    font-family: tahoma, arial, "Hiragino Sans GB", "\\5B8B体", sans-serif;
+  }
+  .crumb{
+    margin-bottom: 15px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    background: #eeeeee;
+    color: #888;
+    border-top: 2px solid #c60023;
+  }
+  .w{
+    width: 1080px;
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    position: relative;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden
+  }
+  .crumb .crumb-item{
+    color: #888;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .intro-wrap .p-img-wrap{
+    width: 422px;
+    float: left;
+  }
+  .intro-wrap .main-img-con{
+    height: 400px;
+    border: 1px solid #ddd;
+  }
+  .intro-wrap .main-img-con .main-img{
+    width: 100%;
+    height: 100%;
+  }
+  img{
+    display: block;
+    border: none;
+  }
+  .intro-wrap .p-img-list{
+    height: 78px;
+    margin-top: 5px;
+    margin-right: -10px;
+    overflow: hidden;
+  }
+  .intro-wrap .p-img-list .p-img-item{
+    width: 47px;
+    height: 74px;
+    float: left;
+    margin-right: 10px;
+    border: 2px solid #eeeeee;
+    cursor: pointer;
+  }
+  li{
+    list-style: none;
+  }
+  .intro-wrap .p-img-list .p-img-item .p-img{
+    width: 100%;
+    height: 100%;
+  }
+  .intro-wrap .p-into-wrap{
+    margin-left: 420px;
+    padding: 0 15px;
+  }
+  .intro-wrap .p-into-wrap .p-name{
+    font-size: 20px;
+    color: #333;
+  }
+  .intro-wrap .p-into-wrap .p-subtitle{
+    color: #c60023;
+    line-height: 30px;
+    font-size: 15px;
+  }
+  .intro-wrap .p-into-wrap .p-price-con{
+    padding: 10px;
+    background: #eeeeee;
+    margin-top: 20px;
+  }
+  .intro-wrap .p-into-wrap .info-item{
+    position: relative;
+  }
+  .intro-wrap .p-into-wrap .lable{
+    display: inline-block;
+    width: 50px;
+    color: #999999;
+  }
+  .intro-wrap .p-into-wrap .p-price-con .p-price{
+    font-size: 18px;
+    color: #c60023;
+  }
+  .intro-wrap .p-into-wrap .info-item{
+    position: relative;
+    margin-top: 20px;
+    padding: 0 10px;
+  }
+  .intro-wrap .p-into-wrap .p-count{
+    height: 36px;
+    line-height: 36px;
+    font-size: 15px;
+    width: 45px;
+    text-align: center;
+    outline: none;
+    border: 1px solid #aaaaaa;
+  }
+  .intro-wrap .p-into-wrap .p-count-btn.plus{
+    top: 0px;
+  }
+  .intro-wrap .p-into-wrap .p-count-btn.minus{
+    bottom: 0px;
+  }
+  .intro-wrap .p-into-wrap .p-count-btn{
+    position: absolute;
+    left: 115px;
+    display: block;
+    width: 20px;
+    height: 15px;
+    line-height: 15px;
+    font-size: 10px;
+    text-align: center;
+    border: 1px solid #aaaaaa;
+    background: #fff;
+    cursor: pointer;
+  }
+  .intro-wrap .p-into-wrap .info-item{
+    position: relative;
+    margin-top: 20px;
+    padding: 0 10px;
+  }
+  .btn{
+    display: inline-block;
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    border: none;
+    background-color: #c60023;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .detail_wrap{
+    margin-top: 15px;
+    width: 80%;
+    text-align: center;
+    height: auto;
+  }
+  .detail-wrap .detail-tab-con .tab-list {
+     background: #eee;
+     border: 1px solid #ddd;
+     border-bottom: 1px solid #c60023;
+   }
+  .detail-wrap .detail-tab-con .tab-item.active {
+    background: #c60023;
+    color: #fff;
+  }
 </style>

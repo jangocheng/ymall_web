@@ -15,13 +15,13 @@
   export default {
     created(){
         CommodityCategory({}).then(
-            responds=>{
-                this.productList=responds.data
-            },
-          error=>{
-                console.log(error.response.data.content)
-          }
-        )
+        responds=>{
+          this.productList=responds.data
+        },
+        error=>{
+          console.log(error.response.data.content)
+        }
+      )
     },
     data(){
       return {
@@ -48,7 +48,7 @@
     padding: 10px 0;
     width: 240px;
     margin-right: 10px;
-    height: 300px;
+    height: 320px;
     background: #666;
     color: #fff;
   }

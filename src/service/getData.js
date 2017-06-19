@@ -28,6 +28,12 @@ var isemail = (myData) => ajax("get", "/api/user/check_valid",
 //获取商品品类
 var CommodityCategory = myData => ajax("get", "/api/category/sub_list/", myData);
 
+// 获取商品基本信息
+var getCommodityList  = myData => ajax("get", "/api/product/product_list", myData);
+
+//获取商品详情
+var getCommodityDetail  = (productId,myData) => ajax("get", "/api/product/product_detail/"
+  +productId,myData);
 
 
 export {
@@ -37,7 +43,9 @@ export {
   getUserInfo,
   CommodityCategory,
   isusername,
-  isemail
+  isemail,
+  getCommodityList,
+  getCommodityDetail
 }
 
 
