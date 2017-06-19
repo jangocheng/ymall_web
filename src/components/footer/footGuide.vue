@@ -30,7 +30,7 @@
 
 <style scoped>
     .footerWrapper {
-        background-color: #010912;
+        background-color: #F5F5F5;
         width: 100%;
         padding: 20px 0;
     }
@@ -41,7 +41,7 @@
     }
 
     .footer a {
-        color: #FFFFFF;
+        color: #666;
         text-decoration: none;
     }
 

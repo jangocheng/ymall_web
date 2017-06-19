@@ -6,6 +6,5 @@
 export default {
   userInfo: null, //用户信息
   is_login: false,//是否登陆
-  token: null,
-  sessionid: null,
+  cart:null //我的购物车
 }

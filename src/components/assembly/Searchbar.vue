@@ -28,7 +28,7 @@
    .logo {
     position: absolute;
     left: 50px;
-    top: 32px;
+    top: 42px;
     display: block;
     width: 150px;
     font-size: 36px;

@@ -63,8 +63,8 @@ const routes = [
   {
     path: '/my',
     component: my,
-    meta: {requireAuth:false},  // 添加该字段，表示进入这个路由是需要登录的
-    redirect: 'profile',
+    // meta: {requireAuth:false},  // 添加该字段，表示进入这个路由是需要登录的
+    redirect: '/my/profile',
     children: [
       {
         path:'oderList',

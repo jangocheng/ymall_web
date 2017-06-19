@@ -31,7 +31,7 @@
     methods: {
         test(){
           this.message({
-            message: '登录成功',
+            message: 'lalall',
             duration: '1500',
             type: 'info'
           });

@@ -51,7 +51,7 @@
     background-image: url("../../../static/img/background.jpg");
     background-size: cover;
     width: 100%;
-    height: 660px;
+    /*height: 660px;*/
   }
 
   .userWrapper {
@@ -100,6 +100,7 @@
     border-radius: 10px;
     margin: 0 auto;
     margin-top: 80px;
+    margin-bottom: 80px;
   }
 
   .user .u-main {
