@@ -34,6 +34,10 @@ let defaultImg = function (value) {
   if (value === "") {
     return "/static/img/logo.png";
   } else {
+    let img_url = value.replace('http://ymall-1251950860.cossh.myqcloud.com/', "");
+    if (img_url==="null"||img_url === "") {
+      return "/static/img/logo.png";
+    }
     return value;
   }
 }
