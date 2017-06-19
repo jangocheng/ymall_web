@@ -36,7 +36,12 @@
     //方法
     methods: {
       ...mapActions([
-        'ADD_CART'
+        'ADD_CART',
+        'UPDATE_CART_PRODUCT_COUNT',
+        'DELETE_CART_PRODUC',
+        'DELETE_CART_PRODUCT_ALL_CHECKED',
+        'CART_CHECK_ALL',
+        'CART_CHECK_SINGLE'
       ]),
       add(){
         this.ADD_CART({productId:29,count:10}).then(()=>{
@@ -45,6 +50,8 @@
           this.$message.error(error.response.data.msg)
           }
         )
+
+        this.CART_CHECK_SINGLE()
       }
     },
     //观测方法
