@@ -63,7 +63,7 @@ const routes = [
   {
     path: '/my',
     component: my,
-    // meta: {requireAuth:false},  // 添加该字段，表示进入这个路由是需要登录的
+    meta: {requireAuth:true},  // 添加该字段，表示进入这个路由是需要登录的
     redirect: '/my/profile',
     children: [
       {
@@ -80,15 +80,15 @@ const routes = [
   },
   {path:'/cart',
     component:cart,
-    meta:{requireAuth:false,title:"购物车"}
+    meta:{requireAuth:true,title:"购物车"}
   } ,
   {path:'/orderPlace',
     component:orderPlace,
-    meta:{requireAuth:false,title:"下单"}
+    meta:{requireAuth:true,title:"下单"}
   } ,
   {path:'/payment',
     component:payment,
-    meta:{requireAuth:false,title:"支付页"}
+    meta:{requireAuth:true,title:"支付页"}
   } ,
   {path:'/productDetail',
     component:productDetail,

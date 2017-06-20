@@ -31,10 +31,12 @@
               width="550">
               <template scope="scope">
                 <div style="margin: 10px auto">
-                  <router-link to="#" target="_blank">
+                  <router-link :to="{ path: 'productDetail', query: { id: scope.row.productId }}"
+                               target="_blank">
                     <img class="p-img" :src="scope.row.productMainImage | defaultImg"/>
                   </router-link>
-                  <router-link class="link p-name" to="#" target="_blank">
+                  <router-link class="link p-name" :to="{ path: 'productDetail',
+                   query: { id: scope.row.productId }}" target="_blank">
                     {{scope.row.productName}}
                   </router-link>
                 </div>
@@ -102,7 +104,6 @@
 <script>
   import vue from "vue"
   import {table, tableColumn, input, pagination, inputNumber} from "element-ui"
-  import TWEEN from "tween"
   vue.use(input)
   vue.use(table)
   vue.use(tableColumn)

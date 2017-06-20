@@ -1,36 +1,37 @@
 <template >
-    <div id="" class="body">
+    <div id="productList" class="body">
       <head-top></head-top>
         <div class="crumb">
           <div class="w">
             <div class="crumb-list">
-              <a class="crumb-item" href="./index.html">MMall</a>
+              <router-link class="crumb-item" :to="{ path: 'Home' }">YMall</router-link>
               <span></span>
-              <span class="crumb-item">商品列表</span>
+              <span class="crumb-item">
+                <router-link class="crumb-item" :to="{ path: 'Home' }">商品列表</router-link></span>
             </div>
           </div>
         </div>
       <div class="w">
-        <load-list ref="productList" :data_list="dataList"
-                   :total_page="totalPage" class="p-list-con"
+        <load-list ref="refProductList" :data_list="dataList" class="p-list-con"
+                   :total_page="totalPage"
                    @loadData="loadData"
                    mode="pen">
           <template slot="item" scope="product">
-              <li class="p-item">
-                <div class="p-img-con">
-                  <a class="link" href=""  target="_blank">
-                    <img class="p-img" alt="APPLE PHONE" src="product.obj.mainImage"/>
-                  </a>
-                </div>
-                <div class="p-price-con">
-                  <span class="p-price">{{product.obj.price}}</span>
-                </div>
-                <div class="p-name-con">
-                  <a title="APPLE" class="p-name" href="" target="_blank">
-                    {{product.obj.name}}
-                  </a>
-                </div>
-              </li>
+            <div class="p-item">
+              <div class="p-img-con" >
+                <router-link class="link" :to="{ path: 'productDetail', query: { id: product.obj.id }}" replace>
+                  <img class="p-img" alt="APPLE PHONE" :src="product.obj.mainImage"/>
+                </router-link>
+              </div>
+              <div class="p-price-con">
+                <span class="p-price">{{product.obj.price}}</span>
+              </div>
+              <div class="p-name-con">
+                <router-link :to="{ path: 'productDetail', query: { id: product.obj.id }}" replace>
+                  {{product.obj.name}}
+                </router-link>
+              </div>
+            </div>
           </template>
         </load-list>
 
@@ -87,7 +88,11 @@
 
 
         //观测方法
-        watch: {}
+        watch: {
+          '$route': function () {//路由变化复用组件
+            this.$refs.refProductList.reload();
+          }
+        }
     };
 </script>
 

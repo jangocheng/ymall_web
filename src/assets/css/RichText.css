@@ -3,6 +3,7 @@
   white-space: pre-wrap;
   font-size: 15px;
   line-height: 25px;
+  text-align: center;
 }
 
 .RichText img {
@@ -38,3 +39,4 @@
   margin-top: 5px;
   padding: 5px 10px;
 }
+

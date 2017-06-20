@@ -4,7 +4,8 @@
      <h2>全部产品</h2>
      <ul v-for="product in productList" >
        <li >
-         <router-link class="cate-link" :to="{ path: 'productList' }">{{ product.name }}</router-link>
+         <router-link class="cate-link" :to="{ path: 'productList', query: { categoryId: product.id }}" replace>
+           {{ product.name }}</router-link>
          <!--<a class="cate-link" @click="clicklist(product.id)">{{ product.name }}</a>-->
        </li>
      </ul>
@@ -49,7 +50,7 @@
     padding: 10px 0;
     width: 240px;
     margin-right: 10px;
-    height: 320px;
+    height: 300px;
     background: #666;
     color: #fff;
   }
@@ -63,7 +64,6 @@
     background:  #c60023;
     color: #fff;
     padding: 10px 15px;
-    margin-bottom: 20px;
   }
   .cate-link {
     margin-right: 3px;

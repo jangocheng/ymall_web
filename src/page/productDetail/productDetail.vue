@@ -10,16 +10,15 @@
           </div>
         </div>
       </div>
-
   <div class="w" >
     <div class="intro-wrap clear">
       <div class="p-img-wrap">
         <div class="main-img-con">
-          <img class="main-img" src=""/>
+          <img class="main-img" :src="showImage"/>
         </div>
         <ul class="p-img-list">
-          <li class="p-img-item" v-for="image in productDetail.subImages">
-            <img class="p-img" src="image"/>
+          <li class="p-img-item"  v-for="(image,index) in productDetail.subImages">
+            <img @click="clickImage(image)"   class="p-img" :src="image"/>
           </li>
         </ul>
       </div>
@@ -38,12 +37,11 @@
         </div>
         <div class="info-item">
           <span class="lable">数量</span>
-          <input class="p-count" readonly="readonly" value="1"/>
-          <span class="p-count-btn plus" data-opera-type="plus">+</span>
-          <span class="p-count-btn minus" data-opera-type="minus">-</span>
+          <el-input-number v-model="count" @change="handleChange"
+                           :min="1" :max=productDetail.stock></el-input-number>
         </div>
         <div class="info-item">
-          <a class="btn cart-add">加入购物车</a>
+          <a class="btn cart-add" @click="addProduct()">加入购物车</a>
         </div>
       </div>
     </div>
@@ -61,17 +59,20 @@
         </ul>
       </div>
 
-      <div class="" v-html="productDetail.detail"></div>
+      <div class="RichText" v-html="productDetail.detail"></div>
     </div>
       <foot-guide></foot-guide>
     </div>
 </template>
-<!--<div v-html="" class="RichText"></div>-->
 <script>
+  import vue from "vue";
   import headTop from "components/header/headTop";//导入组件
   import footGuide from "components/footer/footGuide";
+  import { inputNumber } from "element-ui"
   import {getCommodityDetail} from "service/getData"
-//  import "assert/css/RichText"
+  import {mapState, mapMutations, mapActions} from "vuex"
+  import "assets/css/RichText.css"
+  vue.use(inputNumber);
     export default {
 
         //注册组件
@@ -82,14 +83,17 @@
         //数据
         data(){
             return {
-              productDetail:''
+              productDetail:'',
+              count: 1,
+              showImage:'',
             }
         },
         //组件创建时
       created(){
-        getCommodityDetail(30).then(
+        getCommodityDetail( this.$route.query.id).then(
           responds=>{
             this.productDetail=responds.data
+            this.showImage=responds.data.mainImage
           },
           error=>{
             console.log(error.response.data.content)
@@ -102,7 +106,27 @@
         //计算属性
         computed: {},
         //方法
-        methods: {},
+        methods: {
+          handleChange(value) {
+            console.log(value);
+          },
+          addProduct(){
+              this.ADD_CART({productId:this.$route.query.id ,count:this.count}).then(()=>{
+                  this.$message.success("添加成功");
+                  this.$router.push('/cart')
+                },
+                error=>{
+                  this.$message.info(error.response.data.msg)
+                }
+              )
+          },
+          ...mapActions([
+            'ADD_CART',
+          ]),
+          clickImage(index){
+             this.showImage=index;
+          }
+        },
         //观测方法
         watch: {}
     };
@@ -177,7 +201,7 @@
     border-bottom: 1px solid #c60023;
   }
   .intro-wrap .p-img-list .p-img-item{
-    width: 47px;
+    width: 65px;
     height: 74px;
     float: left;
     margin-right: 10px;

@@ -1,7 +1,17 @@
 <template>
   <div class="headerWrapper">
     <div id="header" class="header">
+
       <div class="w">
+        <div style="float: right;color: #999;font-size: 12px">
+          <router-link
+            :to="{ path: 'cart' }"><i class="fa fa-shopping-cart" style="color: red"></i>
+            购物车
+          <span v-if="cart!=null&&cart.productTotal!=null">
+            {{cart.productTotal}}
+          </span>
+          </router-link>
+        </div>
         <div class="h-right">
           <ul>
             <li> <router-link :to="{ path: 'Home' }">首页</router-link></li>
@@ -44,7 +54,7 @@
 
     },
     computed: {
-      ...mapState(["userInfo"]),
+      ...mapState(["userInfo","cart"]),
     },
     methods: {
       ...mapActions([
@@ -76,6 +86,7 @@
     margin: 0 auto;
     position: relative;
     overflow: hidden;
+    line-height: 26px;
   }
   .h-left {
     float: left;
@@ -99,7 +110,7 @@
   }
 
   .h-right {
-    float: right;
+    /*float: right;*/
     font-size: 14px;
     line-height: 26px;
   }
@@ -182,7 +193,7 @@
   background-color: #f8f7ff;
 }
   .router-link-active {
-    border-bottom: 3px solid #42b983
+    border-bottom: 2px solid #ff4949;
   }
 
 
@@ -197,4 +208,5 @@
   .auth .register {
     color: #000000;
   }
+
 </style>

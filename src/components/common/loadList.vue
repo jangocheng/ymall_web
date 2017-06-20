@@ -270,6 +270,7 @@
   }
   .load-more {
     margin-top: 10px;
+    clear: both;
   }
 
   /*.load-more:before {*/
