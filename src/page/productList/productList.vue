@@ -182,7 +182,7 @@
     cursor: pointer;
   }
   .p-item .p-img-con .p-img{
-    width: 100%;
+    width: 80%;
   }
   img{
     display: block;
