@@ -2,7 +2,7 @@
   <div id="user" class="userWrapper">
     <div class="user">
       <div class="u-header" @click="$router.replace('/home')">
-        <img class="u-h-logo" src="../../../static/img/logo.png"/>
+        <!--<img class="u-h-logo" src="../../../static/img/logo.png"/>-->
         <h1>YMALL</h1>
       </div>
       <div class="u-mainWrapper">
@@ -76,7 +76,7 @@
   }
 
   .user .u-header h1 {
-    font-family: "Comic Sans MS";
+    /*font-family: "Comic Sans MS";*/
     display: inline-block;
     vertical-align: text-bottom;
     font-size: 38px;

@@ -2,7 +2,11 @@
   <div>
     <div id="loadList" v-loading="listloading" element-loading-text="拼命加载中">
       <div v-if="!loading&&dataList.length<=0&&currentPage===0">
-        <div>暂无数据</div>
+        <div>
+          <ul class="p-list-con">
+            <p class="err-tip">很抱歉，没有找到您需要的商品。</p>
+          </ul>
+        </div>
       </div>
       <div v-else>
         <slot name="item"
@@ -283,6 +287,19 @@
   .load-more button {
     margin: 25px auto;
     display: block;
+  }
+
+  .p-list-con{
+    margin-top: 15px;
+    margin-right: -20px;
+    overflow: hidden;
+  }
+
+  .p-list-con .err-tip {
+    padding: 10px;
+    font-size: 14px;
+    color: #f60;
+    background: #eee;
   }
 </style>
 

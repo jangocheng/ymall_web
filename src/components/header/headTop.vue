@@ -1,26 +1,27 @@
 <template>
   <div class="headerWrapper">
     <div id="header" class="header">
-
       <div class="w">
-        <div style="float: right;color: #999;font-size: 12px">
-          <router-link
-            :to="{ path: 'cart' }"><i class="fa fa-shopping-cart" style="color: red"></i>
-            购物车
+        <router-link class="cart_link"
+                     :to="{ path: '/cart' }"><i class="ion-android-cart"></i>
+          购物车
           <span v-if="cart!=null&&cart.productTotal!=null">
-            {{cart.productTotal}}
+            ({{cart.productTotal}})
           </span>
-          </router-link>
-        </div>
+        </router-link>
         <div class="h-right">
           <ul>
-            <li> <router-link :to="{ path: 'Home' }">首页</router-link></li>
-            <li class="logout" v-if="userInfo!=null">
-              <span @click="$router.push('/my')">个人中心</span>
-              <span @click="logOut"> 注 销 </span>
+            <li>
+              <router-link :to="{ path: '/home' }">首页</router-link>
+            </li>
+            <li v-if="userInfo!=null">
+              <router-link :to="{ path: '/my' }">个人中心</router-link>
+              <span @click="logOut" class="logout">注销<i class="ion-reply"></i></span>
             </li>
             <li class="auth" v-else>
-              <router-link class="login" to="/user/login">登录</router-link>
+              <router-link class="login"
+                           :to="{path:'/user/login',query: {redirect: $router.currentRoute.fullPath}}">登录
+              </router-link> |
               <router-link class="register" to="/user/reg">注册</router-link>
             </li>
           </ul>
@@ -41,12 +42,14 @@
   import Vue from "vue";
   import {input} from 'element-ui'
   import {mapActions, mapState} from 'vuex';
-  import  Searchbar from "components/assembly/Searchbar"
+  import  Searchbar from "components/common/searchbar"
+  import ElButton from "../../../node_modules/element-ui/packages/button/src/button";
   Vue.use(input)
   export default {
-    components:{
-        Searchbar
-      },
+    components: {
+      ElButton,
+      Searchbar
+    },
     data(){
       return {
         isPersonalShow: false
@@ -54,7 +57,7 @@
 
     },
     computed: {
-      ...mapState(["userInfo","cart"]),
+      ...mapState(["userInfo", "cart"]),
     },
     methods: {
       ...mapActions([
@@ -77,10 +80,11 @@
     width: 100%;
 
     font-size: 16px;
-    background-color: #c4c4c4;
+    background-color: #eee;
     color: #8f8f8f;
     margin: 0 auto;
   }
+
   .w {
     width: 1080px;
     margin: 0 auto;
@@ -88,25 +92,10 @@
     overflow: hidden;
     line-height: 26px;
   }
-  .h-left {
-    float: left;
-
-  }
 
   .header a {
     color: #000000;
     text-decoration: none;
-  }
-
-  .h-l-logo {
-    width: 26px;
-    vertical-align: middle;
-    height: 26px;
-  }
-
-  .h-l-logo-text {
-    font-size: 22px;
-    font-family: "Comic Sans MS";
   }
 
   .h-right {
@@ -175,38 +164,40 @@
   }
 
   .h-right > ul > li + li {
-    margin-left: 20px;
+    margin-left: 25px;
   }
 
-  .h-right .logout,
-  /*.h-right .login {*/
-    /*float: left;*/
-    /*margin-left: 20px;*/
-  /*}*/
-
-  .h-right .logout span,
   .h-right .login span {
     cursor: pointer;
     margin-left: 5px;
   }
-.backgroudback{
-  background-color: #f8f7ff;
-}
+
+  .backgroudback {
+    background-color: #f8f7ff;
+  }
+
   .router-link-active {
-    border-bottom: 2px solid #ff4949;
+    border-bottom: 1px solid #ff4949;
   }
 
-
-  .auth a{
-    height: 52/@rem;
-    display: inline-flex;
-  }
-  .auth .login:after{
-    content: "\B7";
-    margin: 0 7/@rem;
-  }
   .auth .register {
     color: #000000;
+  }
+
+  .cart_link {
+    color: #999;
+    font-size: 13px;
+    font-family: "Kaiti SC";
+    float: right;
+  }
+
+  .cart_link:hover {
+    color: red;
+  }
+
+  .logout {
+    margin-left: 10px;
+    cursor: pointer
   }
 
 </style>

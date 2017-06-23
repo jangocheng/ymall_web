@@ -3,7 +3,7 @@
   <el-row>
     <el-col :push="4" >
       <div style="height: 50px;">
-        <router-link class="logo" :to="{ path: 'Home' }">YMALL</router-link>
+        <router-link class="logo" :to="{ path: 'home' }">YMALL</router-link>
       </div>
     </el-col>
     <el-col  :push="8" >
@@ -57,7 +57,7 @@
    .search-btn {
      position: absolute;
      width: 80px;
-     height: 42px;
+     height: 41px;
      border: none;
      background-color: #c60023;
      font-size: 17px;

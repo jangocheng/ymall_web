@@ -63,17 +63,16 @@ const routes = [
   {
     path: '/my',
     component: my,
-    meta: {requireAuth:true},  // 添加该字段，表示进入这个路由是需要登录的
     redirect: '/my/profile',
     children: [
       {
         path:'oderList',
         component:orderList,
-        meta:{title:"我的订单"}
+        meta:{requireAuth:true,title:"我的订单"}
       },{
         path:'profile',
         component:profile,
-        meta:{title:"个人中心"}
+        meta:{requireAuth:true,title:"个人中心"}
       }
     ]
 

@@ -4,7 +4,7 @@
         <div class="crumb">
           <div class="w">
             <div class="crumb-list">
-              <router-link class="crumb-item" :to="{ path: 'Home' }">YMall</router-link>
+              <router-link class="crumb-item" :to="{ path: 'Home' }">YMALL</router-link>
               <span></span>
               <span class="crumb-item">
                 <router-link class="crumb-item" :to="{ path: 'Home' }">商品列表</router-link></span>
@@ -16,30 +16,27 @@
                    :total_page="totalPage"
                    @loadData="loadData"
                    mode="pen">
-          <template slot="item" scope="product">
-            <div class="p-item">
+          <template slot="item" scope="product" >
+            <li class="p-item">
               <div class="p-img-con" >
-                <router-link class="link" :to="{ path: 'productDetail', query: { id: product.obj.id }}" replace>
+                <router-link class="link" :to="{ path: 'productDetail', query: { id: product.obj.id }}">
                   <img class="p-img" alt="APPLE PHONE" :src="product.obj.mainImage"/>
                 </router-link>
               </div>
               <div class="p-price-con">
-                <span class="p-price">{{product.obj.price}}</span>
+                <span class="p-price">
+                  ￥{{product.obj.price}}</span>
               </div>
               <div class="p-name-con">
-                <router-link :to="{ path: 'productDetail', query: { id: product.obj.id }}" replace>
+                <router-link :to="{ path: 'productDetail', query: { id: product.obj.id }}" class="p-name">
                   {{product.obj.name}}
                 </router-link>
               </div>
-            </div>
+            </li>
           </template>
         </load-list>
-
       </div>
-
-
-
-      <foot-guide></foot-guide>
+      <foot-guide style=""></foot-guide>
     </div>
 </template>
 
@@ -113,6 +110,7 @@
     overflow: hidden;
     overflow-x: hidden;
     overflow-y: hidden;
+    min-height: 200px;
   }
   .crumb{
     margin-bottom: 15px;
@@ -164,7 +162,7 @@
   }
   .p-list-con .p-item{
     position: relative;
-    width: 180px;
+    width: 200px;
     padding: 10px;
     margin: 0 20px 20px 0;
     float: left;
@@ -182,7 +180,7 @@
     cursor: pointer;
   }
   .p-item .p-img-con .p-img{
-    width: 80%;
+    width: 100%;
   }
   img{
     display: block;

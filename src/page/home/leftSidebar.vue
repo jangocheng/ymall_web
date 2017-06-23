@@ -4,9 +4,8 @@
      <h2>全部产品</h2>
      <ul v-for="product in productList" >
        <li >
-         <router-link class="cate-link" :to="{ path: 'productList', query: { categoryId: product.id }}" replace>
+         <router-link class="cate-link" :to="{ path: 'productList', query: { categoryId: product.id }}">
            {{ product.name }}</router-link>
-         <!--<a class="cate-link" @click="clicklist(product.id)">{{ product.name }}</a>-->
        </li>
      </ul>
    </div>
@@ -16,7 +15,7 @@
   import {CommodityCategory} from "service/getData"
   export default {
     created(){
-        CommodityCategory({}).then(
+        CommodityCategory().then(
         responds=>{
           this.productList=responds.data
         },
@@ -34,10 +33,7 @@
       }
     },
     methods: {
-      clicklist(aa){
-          alert(aa)
 
-      }
     },
     filters: {}
 
@@ -68,7 +64,11 @@
   .cate-link {
     margin-right: 3px;
     color: #fff;
+    cursor: pointer;
     text-decoration: none;
+  }
+  .cate-link:hover{
+    color: #c60023;
   }
   .index-left-block h3 {
     padding: 0 15px 5px 15px;
