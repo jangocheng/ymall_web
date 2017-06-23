@@ -1,69 +1,89 @@
 <template>
 
   <el-row>
-    <el-col :push="4" >
-      <div style="height: 50px;">
-        <router-link class="logo" :to="{ path: 'home' }">YMALL</router-link>
+    <div class="header">
+      <div class="w">
+        <router-link class="logo" to="/home">YMALL</router-link>
+        <div class="search-form">
+          <input class="search-input" id="search-input" v-model="keyword"
+                 @keyup.13="search()" placeholder="请输入商品名称">
+          <button class="search-btn" id="search-btn" @click="search">搜索</button>
+        </div>
       </div>
-    </el-col>
-    <el-col  :push="8" >
-      <div style="height: 50px">
-        <input v-model="keyword" class="search-input" id="Searchinput" placeholder="请输入商品名称"
-               @keyup.enter="searchBar"/>
-          <button @click="searchBar()" class="search-btn">搜索</button>
-      </div>
-    </el-col>
+    </div>
   </el-row>
 
 
 </template>
 
 <script>
+  import {trimStr} from "utils/util"
   export default{
     data(){
-        return{
-            keyword:''
-        }
+      return {
+        keyword: ''
+      }
     },
-    methods:{
-      searchBar(){
-          this.$router.push({ path: 'productList', query: { keyword:this.keyword }})
+    methods: {
+      search(){
+        if (trimStr(this.keyword).length <= 0) {
+          this.$message({
+            message: '搜索内容不能为空',
+            duration: '1800',
+            type: 'warning'
+          });
+          return false;
+        }
+        this.$router.push({path: 'productList', query: {keyword: trimStr(this.keyword)}})
       }
     }
   }
 
 </script>
 
-<style>
-   .logo {
+<style scoped>
+  .logo {
     position: absolute;
     left: 50px;
-    top: 42px;
+    top: 32px;
     display: block;
     width: 150px;
     font-size: 36px;
     font-weight: 700;
-    color: #c60023;
+    color: #1D8CE0;
     text-decoration: none;
     text-align: center;
   }
-   .search-input {
-     width: 550px;
-     padding: 10px;
-     border: 2px solid #c60023;
-     font-size: 15px;
-     outline: none;
-   }
-   .search-btn {
-     position: absolute;
-     width: 80px;
-     height: 41px;
-     border: none;
-     background-color: #c60023;
-     font-size: 17px;
-     font-weight: 700;
-     color: #fff;
-     outline: none;
-     cursor: pointer;
-   }
+
+  .w {
+    width: 1080px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header .search-form {
+    padding: 40px 0 30px 250px;
+  }
+
+  .search-input {
+    width: 550px;
+    padding: 10px;
+    border: 2px solid #1D8CE0;
+    font-size: 15px;
+    outline: none;
+  }
+
+  .search-btn {
+    position: absolute;
+    width: 80px;
+    height: 41px;
+    border: none;
+    background-color: #1D8CE0;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+  }
 </style>

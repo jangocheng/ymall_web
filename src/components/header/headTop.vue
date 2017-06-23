@@ -43,13 +43,9 @@
   import {input} from 'element-ui'
   import {mapActions, mapState} from 'vuex';
   import  Searchbar from "components/common/searchbar"
-  import ElButton from "../../../node_modules/element-ui/packages/button/src/button";
   Vue.use(input)
   export default {
-    components: {
-      ElButton,
-      Searchbar
-    },
+    components: {Searchbar},
     data(){
       return {
         isPersonalShow: false
@@ -177,7 +173,7 @@
   }
 
   .router-link-active {
-    border-bottom: 1px solid #ff4949;
+    border-bottom: 1px solid #1D8CE0;
   }
 
   .auth .register {
@@ -192,7 +188,7 @@
   }
 
   .cart_link:hover {
-    color: red;
+    color: #1D8CE0;
   }
 
   .logout {

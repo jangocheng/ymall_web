@@ -36,7 +36,7 @@
       </ul>
     </div>
     <div class="floor-wrap">
-      <h1 class="floor-title">F4视频生鲜</h1>
+      <h1 class="floor-title">F4食品生鲜</h1>
       <ul class="floor-con">
         <li class="floor-item" v-for="(item,index) in list4" :key="item.id" >
           <router-link :to="{ path: 'productList', query: { categoryId: item.id }}">

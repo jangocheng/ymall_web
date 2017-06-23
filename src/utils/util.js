@@ -23,4 +23,6 @@
   }
   return true;
 }
-export {checkFiles}
+
+function trimStr(str){return str.replace(/(^\s*)|(\s*$)/g,"");}
+export {checkFiles,trimStr}

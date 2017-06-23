@@ -13,7 +13,7 @@ export default {
     //   return;//用户名不符合返回
     // }
     if (userInfo) {
-      console.log("recordUserInfo");
+      // console.log("recordUserInfo");
       localStorage.setItem("is_login", true);
       localStorage.setItem("is_superuser", userInfo.is_superuser);
       state.is_login = true;

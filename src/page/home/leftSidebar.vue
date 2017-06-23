@@ -57,7 +57,7 @@
     margin-bottom: 20px;
   }
   .index-left-block h2 {
-    background:  #c60023;
+    background:  #1D8CE0;
     color: #fff;
     padding: 10px 15px;
   }
@@ -68,7 +68,7 @@
     text-decoration: none;
   }
   .cate-link:hover{
-    color: #c60023;
+    color: #1D8CE0;
   }
   .index-left-block h3 {
     padding: 0 15px 5px 15px;

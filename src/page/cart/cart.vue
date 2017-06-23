@@ -81,7 +81,7 @@
         </div>
         <div class="cart-footer clear">
           <!--<div class="select-con">-->
-           <!--<el-button type="text" size="small">全选</el-button>-->
+          <!--<el-button type="text" size="small">全选</el-button>-->
           <!--</div>-->
           <div class="delete-con">
             <a class="cart-delete-seleced link">
@@ -183,23 +183,30 @@
       selectSingle(select, row){
         let checked = !row.productChecked;
         let productId = row.productId;
-        this.CART_CHECK_SINGLE({checked:checked, productId:productId}).then(() => {
+        this.CART_CHECK_SINGLE({checked: checked, productId: productId}).then(() => {
         }, error => {
           this.$message.info(error.response.data.msg)
         })
       },
       deleteSelect(){
-      this.DELETE_CART_PRODUCT_ALL_CHECKED().then(()=>{},
-        error=>{
-          this.$message.info(error.response.data.msg)
-      })
+        this.DELETE_CART_PRODUCT_ALL_CHECKED().then(() => {
+          },
+          error => {
+            this.$message.info(error.response.data.msg)
+          })
       },
       delete_item(productId){
-        this.DELETE_CART_PRODUCT(productId).then(()=>{
-          this.$message.success("移除商品成功")
-        },error=>{
-          this.$message.info(error.response.data.msg)
-        })
+        this.$confirm('此操作将从购物车中移除商品, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.DELETE_CART_PRODUCT(productId).then(() => {
+            this.$message.success("移除商品成功")
+          }, error => {
+            this.$message.info(error.response.data.msg)
+          })
+        });
       },
       handleSelectionChange(val) {
         console.log(val + "<=Change")
@@ -231,7 +238,7 @@
     font-size: 14px;
     background: #eeeeee;
     color: #888;
-    border-top: 2px solid #c60023;
+    border-top: 2px solid #1D8CE0;
   }
 
   .w {
@@ -323,5 +330,9 @@
     outline: none;
     cursor: pointer;
     text-decoration: none;
+  }
+
+  .cart-delete-seleced{
+    font-size: 13px;
   }
 </style>

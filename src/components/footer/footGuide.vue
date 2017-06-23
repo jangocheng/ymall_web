@@ -3,7 +3,7 @@
     <div class="footer" id="footer">
       <div class="f-logo-wrapper">
         <router-link to="/home">
-          <img src="../../../static/img/logo.png" alt="logo" class="f-logo"/>
+          <!--<img src="../../../static/img/logo.png" alt="logo" class="f-logo"/>-->
           <span class="f-logo-text">YMALL</span>
         </router-link>
       </div>
@@ -31,6 +31,9 @@
     background-color: #F5F5F5;
     width: 100%;
     padding: 20px 0;
+    border-top: 1px solid #1D8CE0;
+    margin-top: 20px;
+
   }
 
   .footer {
@@ -59,6 +62,7 @@
 
   .footer .f-logo-text {
     font-size: 22px;
+    color: #1D8CE0;
   }
 
   .footer .f-friendlink {
@@ -67,7 +71,7 @@
 
   .footer .f-friendlink ul {
     list-style: none;
-    width: 437px;
+    width: 370px;
     height: 25px;
     /* text-align: center; */
     margin: 0 auto;

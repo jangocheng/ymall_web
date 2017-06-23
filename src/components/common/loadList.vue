@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="loadList" v-loading="listloading" element-loading-text="拼命加载中">
+    <div class="loadList" v-loading="listloading" element-loading-text="拼命加载中">
       <div v-if="!loading&&dataList.length<=0&&currentPage===0">
         <div>
           <ul class="p-list-con">
@@ -15,7 +15,7 @@
               :obj="item">
           <!-- 这里写入备用内容 -->
         </slot>
-
+        <div style="clear:both;"></div>
       </div>
 
     </div>
@@ -25,14 +25,14 @@
         <el-button v-else-if="!loading&&!hasNextPage" type="info" @click="message.info('没有更多了')">没有更多了</el-button>
         <el-button v-else-if="!loading&&hasNextPage" type="primary" @click="loadMore()">加载更多</el-button>
       </div>
-      <el-pagination v-else-if="mode=='pen'&&!loading" style="text-align: center"
-                     layout="prev, pager, next"
-                     :current-page="currentPage" :page-count="totalPage"
-                     @size-change="handleSizeChange"
-                     @current-change="handleCurrentChange"
-      >
-        <!--:total="total" :page-size="limit"-->
-      </el-pagination>
+      <div v-else-if="mode=='pen'&&!loading">
+        <el-pagination style="text-align: center" v-if="!(!loading&&totalPage===1&&currentPage===1)"
+                       layout="prev, pager, next"
+                       :current-page="currentPage" :page-count="totalPage"
+                       @size-change="handleSizeChange"
+                       @current-change="handleCurrentChange">
+        </el-pagination>
+      </div>
       <div v-else-if="mode=='infinite'">
         <el-button v-if="isMore" type="success" icon="loading">正在加载中...</el-button>
         <el-button v-else-if="!hasNextPage" type="info" @click="message.info('没有更多了')">没有更多了</el-button>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-  import {Loading,pagination} from "element-ui"
+  import {Loading, pagination} from "element-ui"
   import Vue from  "vue"
   Vue.use(Loading);
   Vue.use(pagination);
@@ -55,7 +55,7 @@
       return {
         dataList: this.data_list,//当前页数据
         currentPage: 0,//当前页码
-        limit: 10,//每页条目数
+        limit: 4,//每页条目数
         total: 0,//总条目数
         totalPage: this.total_page,//总页数
         loading: false,
@@ -89,7 +89,7 @@
         this.totalPage = newVal;
       }
     },
-    props: {data_list: {require: true}, total_page: {require: true}, mode: {default: 'infinite'}, css_loadmore:{}},
+    props: {data_list: {require: true}, total_page: {require: true}, mode: {default: 'infinite'}, css_loadmore: {}},
     computed: {
       //是否有下一页
       hasNextPage() {
@@ -121,7 +121,7 @@
        * 加载更多
        */
       loadMore () {
-        console.log("加载更多");
+//        console.log("加载更多");
         this.currentPage++;
         this.loadData();
       },
@@ -192,7 +192,7 @@
         if (this.mode == 'pen') {
           this.listloading = true;
         }
-        if(this.mode=='infinite'){
+        if (this.mode == 'infinite') {
           this.isMore = true;
         }
         this.loading = true;
@@ -203,7 +203,7 @@
         this.isMore = false;
       },
       handleSizeChange(limit) {
-        console.log(`每页 ${limit} 条`);
+//        console.log(`每页 ${limit} 条`);
       },
       handleCurrentChange(pageNum) {
         this.toPage(pageNum);
@@ -224,8 +224,8 @@
         let scrollTop = this.getScrollTop();
         let offsetHeight = this.getVisibleHeight();
         let scrollHeight = this.getScrollHeight();
-        var scrollBottom=240;//你可以自己定义距离底部的距离
-        let downTrigger = scrollTop + offsetHeight >= scrollHeight-240;
+        var scrollBottom = 240;//你可以自己定义距离底部的距离
+        let downTrigger = scrollTop + offsetHeight >= scrollHeight - 240;
         if (downTrigger && this.hasNextPage) {
           this.loadMore();
         }
@@ -269,27 +269,20 @@
 </script>
 
 <style scoped>
-  #loadlist{
-
+  .loadList {
+    min-height: 200px;
   }
+
   .load-more {
-    margin-top: 10px;
-    clear: both;
+    margin-top: 40px;
   }
 
-  /*.load-more:before {*/
-    /*content: '.';*/
-    /*display: block;*/
-    /*line-height: 0;*/
-    /*clear: both;*/
-  /*}*/
-
-  .load-more button {
+  .load-more button{
     margin: 25px auto;
     display: block;
   }
 
-  .p-list-con{
+  .p-list-con {
     margin-top: 15px;
     margin-right: -20px;
     overflow: hidden;

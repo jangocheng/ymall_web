@@ -4,9 +4,9 @@
     <div class="crumb">
       <div class="w">
         <div class="crumb-list">
-          <a class="crumb-item" href="./index.html">MMall</a>
+          <a class="crumb-item" href="./index.html">YMALL</a>
           <span></span>
-          <span class="crumb-item">商品列表</span>
+          <span class="crumb-item">商品详情</span>
         </div>
       </div>
     </div>
@@ -40,7 +40,8 @@
             <el-input-number v-model="count" @change="handleChange"
                              :min="1" :max=productDetail.stock></el-input-number>
           </div>
-          <div class="info-item">
+          <div class="btn_group">
+            <a class="shopping">立即购买</a>
             <a class="btn cart-add" @click="addProduct()">加入购物车</a>
           </div>
         </div>
@@ -78,7 +79,7 @@
       return {
         productDetail: '',
         count: 1,
-        showImage: '',
+        showImage: ''
       }
     },
     //组件创建时
@@ -97,21 +98,30 @@
     mounted(){
     },
     //计算属性
-    computed: {},
+    computed: {
+      ...mapState(["is_login"])
+    },
     //方法
     methods: {
       handleChange(value) {
         console.log(value);
       },
       addProduct(){
-        this.ADD_CART({productId: this.$route.query.id, count: this.count}).then(() => {
-            this.$message.success("添加成功");
-            this.$router.push('/cart')
-          },
-          error => {
-            this.$message.info(error.response.data.msg)
-          }
-        )
+        if (this.is_login) {
+          this.ADD_CART({productId: this.$route.query.id, count: this.count}).then(() => {
+              this.$message.success("添加成功");
+              this.$router.push('/cart')
+            },
+            error => {
+              this.$message.info(error.response.data.msg)
+            }
+          )
+        } else {
+          this.$message.info("请先登录");
+//            this.$router.push({path:'/user/login',query: {redirect: $router.currentRoute.fullPath}});
+          this.$router.push({path: "/user/login", query: {redirect: this.$router.currentRoute.fullPath}})
+        }
+
       },
       ...mapActions([
         'ADD_CART',
@@ -136,7 +146,6 @@
     font-variant-numeric: normal;
     font-weight: normal;
     font-stretch: normal;
-    font-size: 12px;
     line-height: 1.5;
     font-family: tahoma, arial, "Hiragino Sans GB", "\\5B8B体", sans-serif;
   }
@@ -148,20 +157,14 @@
     font-size: 14px;
     background: #eeeeee;
     color: #888;
-    border-top: 2px solid #c60023;
+    border-top: 2px solid #1D8CE0;
   }
 
   .w {
     width: 1080px;
-    margin: 0 auto;
-    margin-top: 0px;
-    margin-right: auto;
-    margin-bottom: 0px;
-    margin-left: auto;
+    margin: 0px auto;
     position: relative;
     overflow: hidden;
-    overflow-x: hidden;
-    overflow-y: hidden
   }
 
   .crumb .crumb-item {
@@ -222,11 +225,10 @@
     padding: 2px;
   }
 
-  .p-img:hover{
+  .p-img:hover {
     padding: 0px;
-    border: 2px solid #e53e41;
+    border: 2px solid #1D8CE0;
   }
-
 
   .p-into-wrap {
     margin-left: 420px;
@@ -248,10 +250,6 @@
     padding: 10px;
     background: #eeeeee;
     margin-top: 20px;
-  }
-
-  .info-item {
-    position: relative;
   }
 
   .lable {
@@ -316,9 +314,9 @@
     line-height: 40px;
     vertical-align: middle;
     border: none;
-    background-color: #c60023;
+    background-color:  #FF0036;
     font-size: 17px;
-    font-weight: 700;
+    /*font-weight: 700;*/
     color: #fff;
     outline: none;
     cursor: pointer;
@@ -332,12 +330,6 @@
     height: auto;
   }
 
-  .tab-list {
-    background: #eee;
-    border: 1px solid #ddd;
-    border-bottom: 1px solid #c60023;
-  }
-
   .floor-wrap {
     overflow: hidden;
     background-color: white;
@@ -347,31 +339,40 @@
     /*font-weight: 900;*/
     height: 50px;
     line-height: 50px;
-    color: #C60023;
+    color: #1D8CE0;
     font-size: 15px;
     background-color: #eee;
-    border-bottom: 1px solid #C60023;
-  }
-
-  /*.floor-wrap .floor-con {*/
-  /*margin-right: -20px;*/
-  /*}*/
-  .floor-item {
-    position: relative;
-    width: 200px;
-    height: 220px;
-    margin: 15px 20px 15px 0;
-    float: left;
-    cursor: pointer;
-    background: #fff;
-    transition: box-shadow .5s ease;
+    border-bottom: 1px solid #1D8CE0;
   }
 
   .floor-text {
     display: inline-block;
     width: 100px;
-    background-color: #c60023;
+    background-color: #1D8CE0;
     text-align: center;
     color: #fff;
+  }
+
+  .shopping{
+    margin-right: 25px;
+    cursor: pointer;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    width: 125px;
+    background-color: #ffeded;
+    border: 1px solid #FF0036;
+    color: #FF0036;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Microsoft Yahei';
+  }
+
+  .btn_group{
+    margin-top: 40px;
+    margin-left: 20px;
+    padding: 0 10px;
   }
 </style>
