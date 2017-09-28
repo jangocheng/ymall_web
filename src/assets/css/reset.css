@@ -111,3 +111,10 @@ button, input, select, textarea {
 .fl{
   float: left;
 }
+#app_root{
+  min-width: 1200px;
+  min-height:-webkit-fill-available;
+  /*min-height: 2124px;*/
+  /*margin-bottom: 140px;*/
+  position: relative;
+}

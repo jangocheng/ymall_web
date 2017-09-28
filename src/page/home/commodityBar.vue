@@ -1,5 +1,5 @@
 <template>
-  <div id="CommodityBar" class="w">
+  <div id="CommodityBar" class="w" v-if="isShow">
     <div class="floor-wrap">
       <h1 class="floor-title">F1家用电器</h1>
       <ul class="floor-con">
@@ -75,6 +75,7 @@
     data(){
       return {
         isPersonalShow: false,
+        isShow:false,
         list1:[
 
         ],
@@ -129,6 +130,7 @@
         CommodityCategory({parentId:100005}).then(
           responds=>{
             this.list5=responds.data
+            this.isShow=true
           },
           error=>{
             console.log(error.response.data.content)
@@ -150,7 +152,7 @@
 
 <style scoped>
   .w {
-    width: 1080px;
+    /*width: 76%;*/
     margin: 0 auto;
     position: relative;
     overflow: hidden;

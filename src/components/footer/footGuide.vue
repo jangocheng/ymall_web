@@ -33,7 +33,8 @@
     padding: 20px 0;
     border-top: 1px solid #1D8CE0;
     margin-top: 20px;
-
+    /*position: absolute;*/
+    /*bottom: 0px;*/
   }
 
   .footer {

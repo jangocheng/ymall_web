@@ -44,7 +44,7 @@
 <style scoped>
   .logo {
     position: absolute;
-    left: 50px;
+    left: 75px;
     top: 32px;
     display: block;
     width: 150px;
@@ -56,7 +56,8 @@
   }
 
   .w {
-    width: 1080px;
+    width: 65%;
+    min-width: 900px;
     margin: 0 auto;
     position: relative;
     overflow: hidden;

@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #f9f9f9;">
+  <div id="homeWrapper">
     <head-top></head-top>
     <div class="w">
       <left-sidebar></left-sidebar>
@@ -39,8 +39,8 @@
           {url: '../../../static/img/background2.jpg'},
           {url: '../../../static/img/background3.jpg'}
         ],
-        is_switch: false,
-        num: 6,
+        is_switch: true,
+        num: 4,
       }
     },
     methods: {},
@@ -61,15 +61,22 @@
   .main-container {
     float: left;
     padding: 1px 0;
-    width: 800px;
-    margin-right: 10px;
-    height: 200px;
+    width: 830px;
+    /*margin-right: 10px;*/
+    height: 300px;
     background: #ccc;
     color: #fff;
   }
 
+  #homeWrapper{
+    background-color: #f9f9f9;
+    /*min-height: 2500px;*/
+  }
+
+
   .w {
-    width: 1080px;
+    width: 75%;
+    min-width: 1080px;
     margin: 0 auto;
     position: relative;
     overflow: hidden;
