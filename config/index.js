@@ -32,7 +32,7 @@ module.exports = {
     assetsPublicPath: '/',// 编译发布的根目录，可配置为资源服务器域名或 CDN 域名
     proxyTable: {
       '/api':{
-        target: 'http://http://115.159.95.37/api/',
+        target: 'http://115.159.95.37/api/',
         changeOrigin:true,
         secure:false,
         pathRewrite:{
